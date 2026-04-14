@@ -11,24 +11,23 @@
 
 #include <stdio.h>
 #include <math.h>
-#include <string.h>
 
 #define NUM_ALUNOS 6
 #define IMC_IDEAL 22.5
 
-void classificar_imc(float imc, char *classificacao) {
+void imprimir_classificacao(float imc) {
     if (imc < 18.5)
-        strcpy(classificacao, "Abaixo do peso");
+        printf("Abaixo do peso");
     else if (imc < 24.9)
-        strcpy(classificacao, "Peso normal");
+        printf("Peso normal");
     else if (imc < 29.9)
-        strcpy(classificacao, "Sobrepeso");
+        printf("Sobrepeso");
     else if (imc < 34.9)
-        strcpy(classificacao, "Obesidade grau I");
+        printf("Obesidade grau I");
     else if (imc < 39.9)
-        strcpy(classificacao, "Obesidade grau II");
+        printf("Obesidade grau II");
     else
-        strcpy(classificacao, "Obesidade grau III");
+        printf("Obesidade grau III");
 }
 
 int main(void) {
@@ -38,7 +37,6 @@ int main(void) {
     float media_imc;
     int indice_ideal = 0;
     float menor_diferenca;
-    char classificacao[50];
 
     printf("==========================================\n");
     printf("   AVALIACAO FISICA - ACADEMIA\n");
@@ -86,17 +84,18 @@ int main(void) {
     printf("------------------------------------------------------------------------\n");
 
     for (int i = 0; i < NUM_ALUNOS; i++) {
-        classificar_imc(imc[i], classificacao);
-        printf("%-20s %-10.1f %-10.2f %-10.2f %s\n",
-               nomes[i], peso[i], altura[i], imc[i], classificacao);
+        printf("%-20s %-10.1f %-10.2f %-10.2f ", nomes[i], peso[i], altura[i], imc[i]);
+        imprimir_classificacao(imc[i]);
+        printf("\n");
     }
 
     printf("\n==========================================\n");
     printf("  Media de IMC da turma: %.2f\n", media_imc);
     printf("==========================================\n");
 
-    classificar_imc(media_imc, classificacao);
-    printf("  Classificacao media: %s\n", classificacao);
+    printf("  Classificacao media: ");
+    imprimir_classificacao(media_imc);
+    printf("\n");
 
     printf("\n==========================================\n");
     printf("  Aluno mais proximo do peso ideal (IMC = %.1f):\n", IMC_IDEAL);
