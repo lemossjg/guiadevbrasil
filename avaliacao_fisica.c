@@ -26,7 +26,6 @@ void imprimir_classificacao(float imc) {
         printf("Obesidade grau I");
     else if (imc < 40.0)
         printf("Obesidade grau II");
-        printf("Obesidade grau II");
     else
         printf("Obesidade grau III");
 }
