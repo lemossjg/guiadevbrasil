@@ -59,17 +59,17 @@
 
 > Se você deseja acompanhar esse repositório em outro idioma que não seja o Português Brasileiro, você pode optar pelas escolhas de idiomas abaixo, você também pode colaborar com a tradução para outros idiomas e a correções de possíveis erros ortográficos, a comunidade agradece.
 
-<img src = "https://i.imgur.com/lpP9V2p.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>English — </b> [Click Here](https://github.com/arthurspk/guiadevbrasil)<br>
-<img src = "https://i.imgur.com/GprSvJe.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Spanish — </b> [Click Here](https://github.com/arthurspk/guiadevbrasil)<br>
-<img src = "https://i.imgur.com/4DX1q8l.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Chinese — </b> [Click Here](https://github.com/arthurspk/guiadevbrasil)<br>
-<img src = "https://i.imgur.com/6MnAOMg.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Hindi — </b> [Click Here](https://github.com/arthurspk/guiadevbrasil)<br>
-<img src = "https://i.imgur.com/8t4zBFd.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Arabic — </b> [Click Here](https://github.com/arthurspk/guiadevbrasil)<br>
-<img src = "https://i.imgur.com/iOdzTmD.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>French — </b> [Click Here](https://github.com/arthurspk/guiadevbrasil)<br>
-<img src = "https://i.imgur.com/PILSgAO.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Italian — </b> [Click Here](https://github.com/arthurspk/guiadevbrasil)<br>
-<img src = "https://i.imgur.com/0lZOSiy.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Korean — </b> [Click Here](https://github.com/arthurspk/guiadevbrasil)<br>
-<img src = "https://i.imgur.com/3S5pFlQ.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Russian — </b> [Click Here](https://github.com/arthurspk/guiadevbrasil)<br>
-<img src = "https://i.imgur.com/i6DQjZa.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>German — </b> [Click Here](https://github.com/arthurspk/guiadevbrasil)<br>
-<img src = "https://i.imgur.com/wWRZMNK.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Japanese — </b> [Click Here](https://github.com/arthurspk/guiadevbrasil)<br>
+<img src = "https://i.imgur.com/lpP9V2p.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>English — </b> [Click Here](./translations/en/readme.md)<br>
+<img src = "https://i.imgur.com/GprSvJe.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Spanish — </b> [Click Here](./translations/es/readme.md)<br>
+<img src = "https://i.imgur.com/4DX1q8l.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Chinese — </b> [Click Here](./translations/zh/readme.md)<br>
+<img src = "https://i.imgur.com/6MnAOMg.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Hindi — </b> [Click Here](./translations/hi/readme.md)<br>
+<img src = "https://i.imgur.com/8t4zBFd.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Arabic — </b> [Click Here](./translations/ar/readme.md)<br>
+<img src = "https://i.imgur.com/iOdzTmD.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>French — </b> [Click Here](./translations/fr/readme.md)<br>
+<img src = "https://i.imgur.com/PILSgAO.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Italian — </b> [Click Here](./translations/it/readme.md)<br>
+<img src = "https://i.imgur.com/0lZOSiy.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Korean — </b> [Click Here](./translations/ko/readme.md)<br>
+<img src = "https://i.imgur.com/3S5pFlQ.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Russian — </b> [Click Here](./translations/ru/readme.md)<br>
+<img src = "https://i.imgur.com/i6DQjZa.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>German — </b> [Click Here](./translations/de/readme.md)<br>
+<img src = "https://i.imgur.com/wWRZMNK.png" alt="Guia Extenso de Programação" width="16" height="15">・<b>Japanese — </b> [Click Here](./translations/ja/readme.md)<br>
 
 ## 📚 ÍNDICE
 
@@ -178,9 +178,9 @@
 [🦃 Sites e cursos para aprender Pandas](#-sites-e-cursos-para-aprender-pandas) <br>
 [🐟 Sites e cursos para aprender XML](#-sites-e-cursos-para-aprender-xml) <br>
 [🦢 Sites e cursos para aprender Jenkins](#-sites-e-cursos-para-aprender-jenkins) <br>
-[🐩 Sites e cursos para aprender Xamarin](#sites-e-cursos-para-aprender-xamarin) <br>
-[🦁 Sites e cursos para aprender Matlab](#sites-e-cursos-para-aprender-matlab) <br>
-[🦨 Sites e cursos para aprender Julia](#sites-e-cursos-para-aprender-julia) <br>
+[🐩 Sites e cursos para aprender Xamarin](#-sites-e-cursos-para-aprender-xamarin) <br>
+[🦁 Sites e cursos para aprender Matlab](#-sites-e-cursos-para-aprender-matlab) <br>
+[🦨 Sites e cursos para aprender Julia](#-sites-e-cursos-para-aprender-julia) <br>
 [🐨 Sites e cursos para aprender PowerShell](#-sites-e-cursos-para-aprender-powershell) <br>
 [🐥 Sites e cursos para aprender Flask](#-sites-e-cursos-para-aprender-flask) <br>
 [🐔 Sites e cursos para aprender Spring](#-sites-e-cursos-para-aprender-spring) <br>
@@ -2296,7 +2296,7 @@
 
     </details>
 
-  ## 🐒 Sites e cursos para aprender TypeScript
+## 🐒 Sites e cursos para aprender TypeScript
 
 > Cursos para aprender TypeScript em Português
 
