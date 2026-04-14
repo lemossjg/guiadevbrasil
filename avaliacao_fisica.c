@@ -18,13 +18,14 @@
 void imprimir_classificacao(float imc) {
     if (imc < 18.5)
         printf("Abaixo do peso");
-    else if (imc < 24.9)
+    else if (imc < 25.0)
         printf("Peso normal");
-    else if (imc < 29.9)
+    else if (imc < 30.0)
         printf("Sobrepeso");
-    else if (imc < 34.9)
+    else if (imc < 35.0)
         printf("Obesidade grau I");
-    else if (imc < 39.9)
+    else if (imc < 40.0)
+        printf("Obesidade grau II");
         printf("Obesidade grau II");
     else
         printf("Obesidade grau III");
