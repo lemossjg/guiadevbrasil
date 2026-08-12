@@ -1,0 +1,188 @@
+#!/usr/bin/env python3
+"""
+Pomodoro CLI melhorado:
+- argumentos via linha de comando
+- temporizador baseado em time.monotonic (sem drift)
+- persistência simples do total de foco por dia (JSON)
+- som de alerta multiplataforma (winsound quando disponível)
+- tratamento de KeyboardInterrupt / sinal
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import signal
+import sys
+import time
+from dataclasses import dataclass
+from datetime import date
+from typing import Optional
+
+STATS_FILE = os.path.expanduser("~/.pomodoro_stats.json")
+
+
+def limpar_tela() -> None:
+    os.system("cls" if os.name == "nt" else "clear")
+
+
+def tocar_alerta() -> None:
+    """Tenta tocar um som de alerta de forma multiplataforma."""
+    try:
+        if sys.platform == "win32":
+            import winsound
+
+            # frequência, duração (ms)
+            winsound.Beep(1000, 300)
+        else:
+            # Fallback simples: campainha do terminal
+            print("\a", end="", flush=True)
+    except Exception:
+        # Nunca quebre se som falhar
+        print("\a", end="", flush=True)
+
+
+def formatar_tempo(segundos: int) -> str:
+    mins, secs = divmod(max(0, segundos), 60)
+    return f"{mins:02d}:{secs:02d}"
+
+
+@dataclass
+class Config:
+    foco_min: int = 30
+    pausa_min: int = 10
+    long_break_min: int = 15
+    ciclos_para_long: int = 4
+    salvar_stats: bool = True
+
+
+def carregar_stats(path: str = STATS_FILE) -> dict:
+    if os.path.exists(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
+
+
+def salvar_stats(stats: dict, path: str = STATS_FILE) -> None:
+    try:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(stats, f, ensure_ascii=False, indent=2)
+    except Exception:
+        # Não falhar se não puder salvar
+        pass
+
+
+def iniciar_timer(duracao_minutos: int, mensagem: str, ciclo_atual: int, foco_total_min: int) -> None:
+    """Timer que usa time.monotonic para evitar drift do sleep."""
+    segundos_totais = int(duracao_minutos * 60)
+    fim = time.monotonic() + segundos_totais
+
+    while True:
+        restante = int(fim - time.monotonic())
+        if restante < 0:
+            restante = 0
+
+        limpar_tela()
+        print("======================================")
+        print(f"   MODO: {mensagem}")
+        print(f"   CICLO ATUAL: {ciclo_atual}")
+        print(f"   FOCO ACUMULADO HOJE: {foco_total_min} min")
+        print("--------------------------------------")
+        print(f"   Tempo restante: {formatar_tempo(restante)}")
+        print("======================================")
+
+        if restante <= 0:
+            break
+
+        # Dorme um pequeno intervalo para atualização fluida sem usar 100% CPU
+        time.sleep(0.5)
+
+    tocar_alerta()
+
+
+def signal_handler(signum, frame) -> None:
+    # Simples handler para SIGINT/SIGTERM
+    limpar_tela()
+    print("\nSessão interrompida pelo usuário.")
+    sys.exit(0)
+
+
+def pomodoro_loop(cfg: Config) -> None:
+    # registra handler de sinal
+    signal.signal(signal.SIGINT, signal_handler)
+    try:
+        signal.signal(signal.SIGTERM, signal_handler)
+    except Exception:
+        pass  # Windows pode não suportar tudo
+
+    ciclo = 1
+    stats = carregar_stats() if cfg.salvar_stats else {}
+    hoje = date.today().isoformat()
+    foco_acumulado = int(stats.get(hoje, 0))
+
+    try:
+        while True:
+            # Foco
+            iniciar_timer(cfg.foco_min, "FOCO", ciclo, foco_acumulado)
+            foco_acumulado += cfg.foco_min
+            if cfg.salvar_stats:
+                stats[hoje] = foco_acumulado
+                salvar_stats(stats)
+
+            try:
+                input("\n[!] Foco encerrado! Pressione ENTER para iniciar a pausa...")
+            except EOFError:
+                # quando não há stdin interativo (p.ex. redirecionado), continue
+                pass
+
+            # Pausa curta ou longa
+            if ciclo % cfg.ciclos_para_long == 0:
+                iniciar_timer(cfg.long_break_min, "PAUSA LONGA", ciclo, foco_acumulado)
+            else:
+                iniciar_timer(cfg.pausa_min, "PAUSA (DESCANSO)", ciclo, foco_acumulado)
+
+            print(f"\n[√] Ciclo {ciclo} completo!")
+            try:
+                input("Pressione ENTER para o PRÓXIMO CICLO de foco...")
+            except EOFError:
+                pass
+
+            ciclo += 1
+
+    except KeyboardInterrupt:
+        # cairá aqui também se signal_handler não chamado
+        pass
+    finally:
+        limpar_tela()
+        print("======================================")
+        print("        SESSÃO FINALIZADA")
+        print(f"   Total de Ciclos: {ciclo - 1}")
+        print(f"   Total de Foco hoje: {foco_acumulado} minutos")
+        print("======================================")
+        print("Bom descanso!")
+
+
+def parse_args(argv: Optional[list[str]] = None) -> Config:
+    p = argparse.ArgumentParser(description="Pomodoro CLI simples e melhorado")
+    p.add_argument("--foco", "-f", type=int, default=30, help="Minutos de foco (padrão: 30)")
+    p.add_argument("--pausa", "-p", type=int, default=10, help="Minutos de pausa curta (padrão: 10)")
+    p.add_argument("--long", "-l", dest="long_break_min", type=int, default=15, help="Minutos de pausa longa (padrão: 15)")
+    p.add_argument("--ciclos-para-long", type=int, default=4, help="Ciclos para uma pausa longa (padrão: 4)")
+    p.add_argument("--no-save", action="store_true", help="Não salvar estatísticas de foco")
+    args = p.parse_args(argv)
+    return Config(
+        foco_min=args.foco,
+        pausa_min=args.pausa,
+        long_break_min=args.long_break_min,
+        ciclos_para_long=args.ciclos_para_long,
+        salvar_stats=not args.no_save,
+    )
+
+
+if __name__ == "__main__":
+    cfg = parse_args()
+    pomodoro_loop(cfg)
